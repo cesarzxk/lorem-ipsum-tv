@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Text, View } from "react-native";
 import { styles } from "./styles.native";
 
-export default function Main() {
+export default function Plans() {
   const navigate = useNavigation();
   return (
     <View style={styles.container}>
@@ -21,7 +21,7 @@ export default function Main() {
       <Button
         title="Procurar"
         onPress={() => {
-          navigate.navigate("adress");
+          navigate.navigate("Adress");
         }}
       />
     </View>
