@@ -31,16 +31,21 @@ export default function Search({ coords, setCoords }: SearchProps) {
 
   const AutocompleteItem = ({ item }: any) => (
     <TouchableOpacity
+      style={{ marginHorizontal: 5 }}
       onPress={() => {
         setCoords(item.displayLatLng);
         setQuery(
-          `${item.adminArea6}, ${item.adminArea5}, ${item.adminArea3}, ${item.adminArea1}`
+          `${item.adminArea6 && item.adminArea6 + ", "}${
+            item.adminArea5 && item.adminArea5 + ", "
+          }${item.adminArea3 && item.adminArea3 + ", "}${item.adminArea1}`
         );
       }}
     >
       <Text>
-        {item.adminArea6} ,{item.adminArea5}, {item.adminArea3},{" "}
-        {item.adminArea1}
+        {`${item.adminArea6 && item.adminArea6 + ", "}${
+          item.adminArea5 && item.adminArea5 + ", "
+        }${item.adminArea3 && item.adminArea3 + ", "}${item.adminArea1}
+        `}
       </Text>
     </TouchableOpacity>
   );
@@ -58,6 +63,7 @@ export default function Search({ coords, setCoords }: SearchProps) {
         right: 0,
         top: 40,
         zIndex: 1,
+        marginHorizontal: "5%",
         backgroundColor: "#fff",
       }}
     >
@@ -65,6 +71,7 @@ export default function Search({ coords, setCoords }: SearchProps) {
         data={result}
         onChangeText={(text) => setQuery(text)}
         onEndEditing={() => handlerSearchGeocode()}
+        placeholder="Busque aqui seu endereço!"
         value={query}
         flatListProps={{
           keyboardShouldPersistTaps: "always",

@@ -6,13 +6,21 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+
+  flatlist: {
+    width: "100%",
+  },
+
+  buttonContainer: {
+    position: "absolute",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 20,
   },
 });
