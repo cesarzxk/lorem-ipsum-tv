@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { Dimensions, FlatList } from "react-native";
+import { Dimensions } from "react-native";
 
 import MapView, { Marker, MarkerProps, MapViewProps } from "react-native-maps";
+import { FontAwesome } from "@expo/vector-icons";
+
 import * as Location from "expo-location";
 
 type MapProps = {
@@ -12,12 +14,12 @@ type MapProps = {
 };
 
 type marker = {
-  lng: number;
+  lon: number;
   lat: number;
   color: string;
 };
 
-type coordstype = { lat: number; lng: number };
+type coordstype = { lat: number; lon: number };
 
 export default function Map({
   coords,
@@ -40,7 +42,7 @@ export default function Map({
 
   async function getautomaticLocation() {
     const { coords } = await Location.getCurrentPositionAsync();
-    setCoords({ lat: coords.latitude, lng: coords.longitude });
+    setCoords({ lat: coords.latitude, lon: coords.longitude });
   }
 
   const MarkerRef = useRef<MarkerProps>();
@@ -51,12 +53,21 @@ export default function Map({
       followsUserLocation={enableSelfMark}
       showsMyLocationButton={enableSelfMark}
       showsUserLocation={enableSelfMark}
-      region={{
-        latitude: coords ? coords.lat : -10,
-        longitude: coords ? coords.lng : -60,
-        latitudeDelta: coords ? 0.01 : 100,
-        longitudeDelta: coords ? 0.01 : 100,
-      }}
+      region={
+        markers
+          ? {
+              latitude: coords.lat,
+              longitude: coords.lon,
+              latitudeDelta: 0.4,
+              longitudeDelta: 0.4,
+            }
+          : {
+              latitude: coords ? coords.lat : -10,
+              longitude: coords ? coords.lon : -60,
+              latitudeDelta: coords ? 0.01 : 100,
+              longitudeDelta: coords ? 0.01 : 100,
+            }
+      }
       style={{
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height,
@@ -66,7 +77,7 @@ export default function Map({
         if (enableSelfMark) {
           setCoords({
             lat: nativeEvent.coordinate.latitude,
-            lng: nativeEvent.coordinate.longitude,
+            lon: nativeEvent.coordinate.longitude,
           });
         }
       }}
@@ -74,22 +85,21 @@ export default function Map({
       {coords && (
         <Marker
           ref={MarkerRef}
-          coordinate={{ latitude: coords.lat, longitude: coords.lng }}
-        />
+          coordinate={{ latitude: coords.lat, longitude: coords.lon }}
+        >
+          <FontAwesome name="map-marker" size={40} color="black" />
+        </Marker>
       )}
 
-      {markers && (
-        <FlatList
-          data={markers}
-          renderItem={({ item }) => (
-            <Marker
-              pinColor={item.color}
-              coordinate={{ longitude: item.lng, latitude: item.lat }}
-            />
-          )}
-          keyExtractor={(item) => item.lng.toString()}
-        />
-      )}
+      {markers &&
+        markers.map((item) => (
+          <Marker
+            key={item.color}
+            coordinate={{ longitude: item.lon, latitude: item.lat }}
+          >
+            <FontAwesome name="map-marker" size={40} color={item.color} />
+          </Marker>
+        ))}
     </MapView>
   );
 }

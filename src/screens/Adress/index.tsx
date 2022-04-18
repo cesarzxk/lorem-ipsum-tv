@@ -1,16 +1,40 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
-import { styles } from "./styles.native";
+import { View } from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+import { styles } from "./styles.native";
+import { useGlobal } from "../../contexts/GlobalContext";
 import Map from "../../components/Map";
 import Search from "../../components/Search";
 import NextButton from "../../components/NextButton";
-import { useGlobal } from "../../contexts/GlobalContext";
 
-export default function Adress() {
-  const navigate = useNavigation();
-  const { coords, setCoords, handlerGetTVGeolocation } = useGlobal();
+type RootStackParamList = {
+  plans: undefined;
+  planmap: undefined;
+  Forgot: undefined;
+  main: undefined;
+  adress: undefined;
+};
+
+type ProfileScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "adress"
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function Adress({ navigation }: Props) {
+  const { coords, setCoords, handlerGetTvPlans, plans } = useGlobal();
+  const [isLoading, setIsloading] = useState(false);
+
+  async function handlerSubmit() {
+    setIsloading(true);
+    await handlerGetTvPlans();
+    setIsloading(false);
+    navigation.navigate("plans");
+  }
 
   return (
     <View style={styles.container}>
@@ -21,10 +45,8 @@ export default function Adress() {
       <View style={styles.buttonContainer}>
         <NextButton
           enabled={coords ? true : false}
-          onPress={() => {
-            navigate.navigate("plans");
-            handlerGetTVGeolocation();
-          }}
+          onPress={handlerSubmit}
+          isLoading={isLoading}
           title="Proxima etapa!"
         />
       </View>

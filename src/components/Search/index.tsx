@@ -8,7 +8,7 @@ type SearchProps = {
   setCoords: (coords: coordstype) => void;
 };
 
-type coordstype = { lat: number; lng: number };
+type coordstype = { lat: number; lon: number };
 
 export default function Search({ coords, setCoords }: SearchProps) {
   const [result, setResult] = useState([]);
@@ -33,7 +33,7 @@ export default function Search({ coords, setCoords }: SearchProps) {
     <TouchableOpacity
       style={{ marginHorizontal: 5 }}
       onPress={() => {
-        setCoords(item.displayLatLng);
+        setCoords(item.displayLatlon);
         setQuery(
           `${item.adminArea6 && item.adminArea6 + ", "}${
             item.adminArea5 && item.adminArea5 + ", "

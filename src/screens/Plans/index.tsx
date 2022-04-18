@@ -1,51 +1,78 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Button, FlatList, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { FontAwesome5 } from "@expo/vector-icons";
+
+import { styles } from "./styles.native";
+import { useGlobal } from "../../contexts/GlobalContext";
 import PlanCard from "../../components/PlanCard";
 import NextButton from "../../components/NextButton";
-import { styles } from "./styles.native";
+import FiltesModal from "../../components/ModalFilters";
 
-export default function Plans() {
-  const navigate = useNavigation();
-  const pacotesFake = [
-    {
-      id: 1,
-      pacote: "TV 1, Telefone 1",
-      preco: 200,
-      distancia: 100,
-    },
-    {
-      id: 2,
-      pacote: "TV 1, Telefone 1",
-      preco: 200,
-      distancia: 100,
-    },
-    {
-      id: 3,
-      pacote: "TV 1, Telefone 1",
-      preco: 200,
-      distancia: 100,
-    },
-  ];
+type RootStackParamList = {
+  plans: undefined;
+  planmap: undefined;
+  main: undefined;
+  adress: undefined;
+};
+
+type ProfileScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "plans"
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function Plans({ navigation }: Props) {
+  const { plans, clearPlans } = useGlobal();
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Text>Pacotes disponiveis</Text>
-
-      <FlatList
-        style={styles.flatlist}
-        data={pacotesFake}
-        renderItem={({ item }) => <PlanCard key={item.id} props={item} />}
-        keyExtractor={(item) => item.id.toString()}
+    <>
+      <FiltesModal
+        isVisible={modalIsVisible}
+        setIsVisible={setModalIsVisible}
       />
-      <View style={styles.buttonContainer}>
-        <NextButton
+
+      <View style={styles.container}>
+        <View style={styles.headerRight} />
+        <View style={styles.headerLeft} />
+
+        <TouchableOpacity
           onPress={() => {
-            navigate.goBack();
+            setModalIsVisible(true);
           }}
-          title="Voltar"
+          style={styles.filterButtom}
+        >
+          <FontAwesome5
+            style={styles.filterButtomIcon}
+            name="filter"
+            size={24}
+            color="black"
+          />
+        </TouchableOpacity>
+
+        <Text style={styles.title}>Pacotes disponiveis</Text>
+
+        <FlatList
+          style={styles.flatlist}
+          data={plans}
+          renderItem={({ item }) => <PlanCard key={item.id} props={item} />}
+          keyExtractor={(item) => item.id.toString()}
         />
+
+        <View style={styles.buttonContainer}>
+          <NextButton
+            onPress={() => {
+              clearPlans();
+              navigation.goBack();
+            }}
+            title="Voltar"
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }

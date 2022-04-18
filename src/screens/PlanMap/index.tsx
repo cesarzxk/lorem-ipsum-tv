@@ -1,24 +1,46 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React from "react";
 import { View } from "react-native";
-import Map from "../../components/Map";
-import NextButton from "../../components/NextButton";
+
 import { useGlobal } from "../../contexts/GlobalContext";
 import { styles } from "./styles.native";
+import Map from "../../components/Map";
+import NextButton from "../../components/NextButton";
 
-export default function PlanMap() {
-  const navigate = useNavigation();
-  const { coords, setCoords } = useGlobal();
+type RootStackParamList = {
+  plans: undefined;
+  planmap: undefined;
+  Forgot: undefined;
+  main: undefined;
+  adress: undefined;
+};
+
+type ProfileScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "adress"
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+export default function PlanMap({ navigation }: Props) {
+  const { coords, setCoords, cardSelected } = useGlobal();
 
   return (
     <View>
       <View>
-        <Map setCoords={setCoords} enableSelfMark={false} coords={coords} />
+        <Map
+          setCoords={setCoords}
+          enableSelfMark={false}
+          markers={cardSelected?.coords}
+          coords={coords}
+        />
       </View>
       <View style={styles.buttonContainer}>
         <NextButton
           onPress={() => {
-            navigate.goBack();
+            navigation.goBack();
           }}
           title="Voltar"
         />

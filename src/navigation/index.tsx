@@ -11,7 +11,7 @@ export default function Navigation() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="adress">
+      <Stack.Navigator initialRouteName="main">
         <Stack.Screen
           name="main"
           component={Main}
@@ -28,7 +28,7 @@ export default function Navigation() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="planMap"
+          name="planmap"
           component={PlanMap}
           options={{ headerShown: false }}
         />
