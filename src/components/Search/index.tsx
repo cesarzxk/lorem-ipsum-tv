@@ -33,7 +33,7 @@ export default function Search({ coords, setCoords }: SearchProps) {
     <TouchableOpacity
       style={{ marginHorizontal: 5 }}
       onPress={() => {
-        setCoords(item.displayLatlon);
+        setCoords({ lat: item.latLng.lat, lon: item.latLng.lng });
         setQuery(
           `${item.adminArea6 && item.adminArea6 + ", "}${
             item.adminArea5 && item.adminArea5 + ", "

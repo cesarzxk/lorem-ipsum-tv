@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { Dimensions } from "react-native";
 
-import MapView, { Marker, MarkerProps, MapViewProps } from "react-native-maps";
+import MapView, {
+  Marker,
+  MarkerProps,
+  MapViewProps,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 
 import * as Location from "expo-location";
@@ -50,6 +55,7 @@ export default function Map({
 
   return (
     <MapView
+      provider={PROVIDER_GOOGLE}
       followsUserLocation={enableSelfMark}
       showsMyLocationButton={enableSelfMark}
       showsUserLocation={enableSelfMark}

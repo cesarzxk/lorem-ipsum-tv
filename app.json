@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "octopus-tv",
-    "slug": "octopus-tv",
+    "name": "lorem-ipsum-tv",
+    "slug": "lorem-ipsum-tv",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,12 +19,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cesar3d.loremipsumtv"
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.cesar3d.loremipsumtv",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD_QbahtNw9ACSVOa9YVKZeYbFN45GLA_c"
+        }
       }
     },
     "web": {

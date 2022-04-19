@@ -26,7 +26,7 @@ type Props = {
 };
 
 export default function Adress({ navigation }: Props) {
-  const { coords, setCoords, handlerGetTvPlans, plans } = useGlobal();
+  const { coords, setCoords, handlerGetTvPlans } = useGlobal();
   const [isLoading, setIsloading] = useState(false);
 
   async function handlerSubmit() {
