@@ -57,6 +57,7 @@ Imagens do aplicativo em operação em operação
 
 <p align="center">
 <img alt="ScreenShot01" src="https://res.cloudinary.com/da91uwz7j/image/upload/v1650401880/octopus-tv/Screenshot_2022-04-19-17-53-55-747_com.cesar3d.loremipsumtv_flclts.jpg" width="170px">
+<img alt="ScreenShot01" src="https://res.cloudinary.com/da91uwz7j/image/upload/v1650401881/octopus-tv/Screenshot_2022-04-19-17-53-59-273_com.cesar3d.loremipsumtv_ca6s6o.jpg" width="170px">
 <img alt="ScreenShot01" src="https://res.cloudinary.com/da91uwz7j/image/upload/v1650401881/octopus-tv/Screenshot_2022-04-19-17-54-11-163_com.cesar3d.loremipsumtv_gkoz2m.jpg" width="170px">
 <img alt="ScreenShot01" src="https://res.cloudinary.com/da91uwz7j/image/upload/v1650401881/octopus-tv/Screenshot_2022-04-19-17-54-18-882_com.cesar3d.loremipsumtv_iv5dx5.jpg" width="170px">
 </p>
